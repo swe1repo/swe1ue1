@@ -63,12 +63,11 @@ public class MyListTest {
 		
 		tester = new MyList();
 		
-		Object[] arr = new Object[20];
 		ArrayList<Object> list = new ArrayList<Object>();
 		
-		for(Object obj : arr)
+		for(int i = 0; i < 20; i++)
 		{
-			list.add(obj);
+			list.add(new Object());
 		}
 		
 		tester.addAll(list);
@@ -77,9 +76,9 @@ public class MyListTest {
 		assertTrue(!tester.isEmpty());
 		assertTrue(!tester.contains(e));
 		
-		for( int i = 0; i < arr.length; i++ )
-		{
-			assertTrue(tester.get(i).equals( arr[i] ));
+		for( int i = 0; i < list.size(); i++ )
+		{	
+			assertTrue(tester.get(i).equals( list.get(i) ));
 		}
 	}
 }

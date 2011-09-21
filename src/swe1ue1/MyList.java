@@ -3,11 +3,94 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 public class MyList implements List<Object> {
+	public class MyListIterator implements Iterator<Object> {
+		private int count_;
+		
+		MyListIterator()
+		{
+			count_ = 0;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return (count_ < list_.length);
+		}
+
+		@Override
+		public Object next() {
+			if( !hasNext() )
+			{
+				throw new NoSuchElementException();
+			}
+			
+			return list_[count_++];
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}	
+	}
+	
+	public class MyListListIterator implements ListIterator<Object> {
+		int count_;
+		
+		MyListListIterator() {
+			count_ = 0;
+		}
+		
+		@Override
+		public void add(Object arg0) {
+			MyList.this.add(count_, arg0);
+		}
+
+		@Override
+		public boolean hasNext() {
+			return (count_ < list_.length);
+		}
+
+		@Override
+		public boolean hasPrevious() {
+			return (count_ - 1 >= 0);
+		}
+
+		@Override
+		public Object next() {
+			return list_[count_++];
+		}
+
+		@Override
+		public int nextIndex() {
+			return count_;
+		}
+
+		@Override
+		public Object previous() {
+			return list_[--count_];
+		}
+
+		@Override
+		public int previousIndex() {
+			return count_ - 1;
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public void set(Object arg0) {
+			list_[count_ - 1] = arg0;
+		}	
+	}
+	
 	private Object[] list_;
 	
-	public MyList() {
+	MyList() {
 		list_ = new Object[0];
 	}
 
@@ -148,6 +231,7 @@ public class MyList implements List<Object> {
 	public Object remove(int index) {
 		if( indexWithinBounds(index) == false )
 		{
+			System.out.println(index + " :: " + list_.length );
 			throw new IndexOutOfBoundsException();
 		}
 		
@@ -261,24 +345,29 @@ public class MyList implements List<Object> {
 	}
 	
 	private boolean indexWithinBounds(int index) {
-		return ( index < 0 || index >= size() );
+		return ( index >= 0 || index < list_.length );
 	}
 
 	@Override
 	public Iterator<Object> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new MyListIterator();
 	}
 
 	@Override
 	public ListIterator<Object> listIterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new MyListListIterator();
 	}
 
 	@Override
 	public ListIterator<Object> listIterator(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if( indexWithinBounds(index) == false )
+		{
+			throw new IndexOutOfBoundsException();
+		}
+		
+		MyListListIterator it = new MyListListIterator();
+		it.count_ = index;
+		
+		return it;
 	}
 }		
