@@ -119,7 +119,7 @@ public class MyList implements List<Object> {
 		
 		for( int i = index + 1; i < tmp.length; i++ )
 		{
-			tmp[i] = list_[i];
+			tmp[i] = list_[i - 1];
 		}
 		
 		list_ = tmp;
@@ -231,7 +231,6 @@ public class MyList implements List<Object> {
 	public Object remove(int index) {
 		if( indexWithinBounds(index) == false )
 		{
-			System.out.println(index + " :: " + list_.length );
 			throw new IndexOutOfBoundsException();
 		}
 		
@@ -345,7 +344,7 @@ public class MyList implements List<Object> {
 	}
 	
 	private boolean indexWithinBounds(int index) {
-		return ( index >= 0 || index < list_.length );
+		return ( index >= 0 || index < size() );
 	}
 
 	@Override
