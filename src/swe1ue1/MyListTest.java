@@ -4,6 +4,8 @@
 package swe1ue1;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -232,5 +234,71 @@ public class MyListTest {
 		
 		assertTrue(tester.size() == total);
 		assertTrue(tester.get(6).equals(o));
+	}
+	
+	@Test
+	public void testSubList() {
+		MyList tester = new MyList();
+		final int count = 50;
+		
+		for(int i = 0; i < count; i++)
+		{
+			tester.add(new Object());
+		}
+		
+		MyList sublist = (MyList)tester.subList(0, count / 2);
+		
+		for(int i = 0; i < count / 2; i++)
+		{
+			assertTrue(sublist.get(i).equals(tester.get(i)));
+		}
+	}
+	
+	@Test
+	public void testToArray() {
+		Object[] arr = new MyList().toArray();
+		
+		MyList tester = new MyList();
+		
+		final int count = 50;
+		
+		for(int i = 0; i < count; i++)
+		{
+			tester.add(new Object());
+		}
+		
+		arr = tester.toArray();
+		
+		for(int i = 0; i < count; i++)
+		{
+			assertTrue(arr[i] == tester.get(i));
+		}
+	}
+	
+	@Test
+	public void testIterator() {
+		MyList tester = new MyList();
+		
+		final int count = 50;
+		
+		for(int i = 0; i < count; i++)
+		{
+			tester.add(new Object());
+		}
+		
+		Iterator<Object> it = tester.iterator();
+		
+		for(int i = 0; i < count; i++)
+		{
+			if(it.hasNext())
+			{
+				assertTrue( it.next().equals(tester.get(i)) );
+			}
+			else
+			{
+				// size is wrong
+				assertTrue(false);
+			}
+		}
 	}
 }

@@ -132,6 +132,11 @@ public class MyList implements List<Object> {
 
 	@Override
 	public boolean addAll(int index, Collection<? extends Object> c) {
+		if(c == null)
+		{
+			throw new NullPointerException();
+		}
+		
 		Iterator<? extends Object> it = c.iterator();
 		
 		for(int count = index; it.hasNext(); count++)
@@ -166,6 +171,11 @@ public class MyList implements List<Object> {
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
+		if(c == null)
+		{
+			throw new NullPointerException();
+		}
+		
 		Object[] arr = c.toArray();
 		
 		for( Object o : arr )
@@ -256,6 +266,11 @@ public class MyList implements List<Object> {
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
+		if(c == null)
+		{
+			throw new NullPointerException();
+		}
+		
 		for( Object e : c.toArray() )
 		{
 			if( remove(e) == false )
@@ -269,6 +284,11 @@ public class MyList implements List<Object> {
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
+		if(c == null)
+		{
+			throw new NullPointerException();
+		}
+		
 		for( Object o : list_ )
 		{
 			if( c.contains(o) == false )
