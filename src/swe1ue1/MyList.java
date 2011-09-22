@@ -132,11 +132,11 @@ public class MyList implements List<Object> {
 
 	@Override
 	public boolean addAll(int index, Collection<? extends Object> c) {
-		Object[] arr = c.toArray();
+		Iterator<? extends Object> it = c.iterator();
 		
-		for( int i = 0; i < arr.length; i++ )
+		for(int count = index; it.hasNext(); count++)
 		{
-			add(index + i, arr[i]);
+			add(count, it.next());
 		}
 		
 		return true;
